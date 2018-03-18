@@ -28,7 +28,7 @@ repositories {
 dependencies {
     compile 'no.tornado:tornadofx:1.7.14'
     testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 mainClassName = 'com.tiem625.modemarker.app.MyApp'
@@ -37,7 +37,7 @@ jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.tiem625.modemarker.app.MyApp'
+                'Main-Class': 'com.tiem625.modemarker.app.ModelMarkerApp'
         )
     }
     from(configurations.compile.collect { entry -> zipTree(entry) }) {
