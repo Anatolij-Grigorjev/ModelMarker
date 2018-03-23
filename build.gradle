@@ -31,7 +31,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
-mainClassName = 'com.tiem625.modemarker.app.MyApp'
+mainClassName = 'com.tiem625.modemarker.app.ModelMarkerApp'
 
 jar {
     manifest {
