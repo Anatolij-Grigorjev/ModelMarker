@@ -9,10 +9,29 @@ class Styles : Stylesheet() {
     }
 
     init {
-        label and heading {
-            padding = box(10.px)
-            fontSize = 20.px
-            fontWeight = FontWeight.BOLD
+        fieldset {
+
+            label {
+                padding = box(1.em)
+                fontSize = 20.px
+                fontWeight = FontWeight.BOLD
+            }
+
+            field {
+
+                padding = box(0.em, 0.em, 1.em, 0.em)
+                label {
+
+                    padding = box(0.5.em)
+                    fontSize = 14.px
+                    fontWeight = FontWeight.findByWeight(350)
+                }
+                textField {
+
+                }
+            }
         }
+
+
     }
 }
