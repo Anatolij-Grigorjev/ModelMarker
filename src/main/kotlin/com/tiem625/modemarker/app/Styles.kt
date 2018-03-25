@@ -1,5 +1,6 @@
 package com.tiem625.modemarker.app
 
+import javafx.geometry.Pos
 import javafx.scene.paint.Paint
 import javafx.scene.text.FontWeight
 import tornadofx.*
@@ -8,6 +9,7 @@ class Styles : Stylesheet() {
     companion object {
 
         val statusBar by cssclass()
+        val info by cssclass()
         val imgMeta by cssclass()
         val heading by cssclass()
         val imgPane by cssclass()
@@ -34,14 +36,19 @@ class Styles : Stylesheet() {
 
                         padding = box(0.5.em)
                         fontSize = 14.px
-                        fontWeight = FontWeight.findByWeight(350)
+                        fontWeight = FontWeight.findByWeight(300)
                     }
 
                     textField {
 
+                        alignment = Pos.CENTER
+
                         and(noEdit) {
 
-                            backgroundColor = multi(Paint.valueOf("#ebe1ec"))
+                            textFill = Paint.valueOf("white")
+                            fontWeight = FontWeight.MEDIUM
+                            backgroundColor = multi(Paint.valueOf("#676767"))
+                            borderColor = multi(box(Paint.valueOf("white")))
                         }
                     }
                 }
@@ -58,7 +65,12 @@ class Styles : Stylesheet() {
 
             label {
 
-                prefWidth = 20.em
+                prefWidth = 15.em
+                alignment = Pos.CENTER_RIGHT
+                info {
+
+                    alignment = Pos.CENTER_LEFT
+                }
             }
         }
 

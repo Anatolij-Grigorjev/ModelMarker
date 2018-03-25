@@ -2,13 +2,16 @@ package com.tiem625.modemarker.view
 
 import com.tiem625.modemarker.app.Styles
 import com.tiem625.modemarker.app.Version
+import com.tiem625.modemarker.controller.MainViewController
 import javafx.application.Platform
+import javafx.beans.binding.Bindings
 import javafx.geometry.Orientation
 import javafx.scene.control.Label
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import javafx.scene.layout.GridPane
+import javafx.stage.FileChooser
 import tornadofx.*
 
 class MainView : View("Model Marker v${Version.versionString} (tm)") {
@@ -18,6 +21,21 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
     lateinit var spriteSizeLbl: Label
     lateinit var selectedRowColLbl: Label
+
+    val mainViewController: MainViewController by inject()
+
+    val fileChooser = FileChooser().apply {
+        this.extensionFilters.addAll(listOf(
+                FileChooser.ExtensionFilter("Image files", listOf(
+                        "bmp",
+                        "jpg",
+                        "jpeg",
+                        "png"
+                )),
+                FileChooser.ExtensionFilter("All files", "*.*")
+        ))
+
+    }
 
     lateinit var imgGridPane: GridPane
 
@@ -33,7 +51,13 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
             menubar {
                 menu("File") {
 
-                    item("New...", mainPlus(KeyCode.N))
+                    item("New...", mainPlus(KeyCode.N)).setOnAction {
+
+                        fileChooser.showOpenDialog(currentWindow)?.let {
+
+                            mainViewController.loadImage(it)
+                        }
+                    }
                     item("Open...", mainPlus(KeyCode.O))
                     item("Save", mainPlus(KeyCode.S))
                     separator()
@@ -59,25 +83,39 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                             textfield {
                                 isEditable = false
                                 addClass(Styles.noEdit)
+                                bind(mainViewController.loadedSheetInfo.sheetWidthProperty())
                             }
                         }
                         field ("Image Height:") {
                             textfield {
                                 isEditable = false
                                 addClass(Styles.noEdit)
+                                bind(mainViewController.loadedSheetInfo.sheetHeightProperty())
                             }
                         }
                         field("Spritesheet Rows:"){
-                            textfield()
+                            textfield {
+
+                                bind(mainViewController.loadedSheetInfo.sheetRowsProperty())
+                            }
                         }
                         field("Spritesheet Columns:") {
-                            textfield()
+                            textfield {
+
+                                bind(mainViewController.loadedSheetInfo.sheetColsProperty())
+                            }
                         }
-                        field("Sprite Padding X:") {
-                            textfield()
+                        field("Sprite Spacing X:") {
+                            textfield {
+
+                                bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingXProperty())
+                            }
                         }
-                        field("Sprite Padding Y:") {
-                            textfield()
+                        field("Sprite Spacing Y:") {
+                            textfield {
+
+                                bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingYProperty())
+                            }
                         }
                     }
                 }
@@ -91,9 +129,29 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
             hbox {
                 addClass(Styles.statusBar)
 
-                spriteSizeLbl = label("Sprite dimensions: ")
+                label("Sprite dimensions: ")
+                spriteSizeLbl = label {
+
+                    mainViewController.loadedSheetInfo.let {
+
+                        val binding = Bindings.createStringBinding({
+
+                            mainViewController.convertSpriteDimensions(it)
+                        }, arrayOf(
+                                it.sheetWidthProperty(),
+                                it.sheetHeightProperty(),
+                                it.sheetRowsProperty(),
+                                it.sheetColsProperty(),
+                                it.sheetSpriteSpacingXProperty(),
+                                it.sheetSpriteSpacingYProperty())
+                        )
+
+                        textProperty().bind(binding)
+                    }
+                }
                 separator(Orientation.VERTICAL)
-                selectedRowColLbl = label("Selected row/col: ")
+                label("Selected row/col: ")
+                selectedRowColLbl = label()
                 separator(Orientation.VERTICAL)
             }
         }
