@@ -5,14 +5,17 @@ import com.tiem625.modemarker.app.Version
 import com.tiem625.modemarker.controller.MainViewController
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
+import javafx.geometry.Insets
 import javafx.geometry.Orientation
 import javafx.scene.control.Label
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
-import javafx.scene.layout.GridPane
+import javafx.scene.layout.*
+import javafx.scene.paint.Color
 import javafx.stage.FileChooser
 import tornadofx.*
+import java.util.concurrent.Callable
 
 class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
@@ -27,10 +30,10 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
     val fileChooser = FileChooser().apply {
         this.extensionFilters.addAll(listOf(
                 FileChooser.ExtensionFilter("Image files", listOf(
-                        "bmp",
-                        "jpg",
-                        "jpeg",
-                        "png"
+                        "*.bmp",
+                        "*.jpg",
+                        "*.jpeg",
+                        "*.png"
                 )),
                 FileChooser.ExtensionFilter("All files", "*.*")
         ))
@@ -158,11 +161,29 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
         //image grid in the center
         center {
+            hbox {
 
-            imgGridPane = gridpane {
+                addClass(Styles.imgPaneContainer)
 
-                addClass(Styles.imgPane)
+                imgGridPane = gridpane {
 
+                    addClass(Styles.imgPane)
+
+                    backgroundProperty().bind(Bindings.createObjectBinding(Callable<Background> {
+                        mainViewController.loadedImage?.let {
+                            Background(BackgroundImage(
+                                    it,
+                                    BackgroundRepeat.NO_REPEAT,
+                                    BackgroundRepeat.NO_REPEAT,
+                                    BackgroundPosition.CENTER,
+                                    BackgroundSize.DEFAULT
+                            ))
+                        } ?: Background(BackgroundFill(
+                                Color.GREY, CornerRadii(1.0), Insets.EMPTY
+                        ))
+                    }, mainViewController.loadedImageProperty()))
+
+                }
             }
         }
     }

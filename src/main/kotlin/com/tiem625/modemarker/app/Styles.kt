@@ -1,6 +1,7 @@
 package com.tiem625.modemarker.app
 
 import javafx.geometry.Pos
+import javafx.scene.paint.Color
 import javafx.scene.paint.Paint
 import javafx.scene.text.FontWeight
 import tornadofx.*
@@ -13,6 +14,7 @@ class Styles : Stylesheet() {
         val imgMeta by cssclass()
         val heading by cssclass()
         val imgPane by cssclass()
+        val imgPaneContainer by cssclass()
         val noEdit by cssclass()
     }
 
@@ -74,12 +76,20 @@ class Styles : Stylesheet() {
             }
         }
 
+        imgPaneContainer {
+
+            minWidth = 100.percent
+            minHeight = 100.percent
+
+            padding = box(5.em)
+            alignment = Pos.CENTER
+            backgroundColor = multi(Color.GREY)
+        }
+
         imgPane {
 
             minWidth = 500.px
             minHeight = 400.px
-
-            backgroundColor = multi(Paint.valueOf("grey"))
         }
     }
 }

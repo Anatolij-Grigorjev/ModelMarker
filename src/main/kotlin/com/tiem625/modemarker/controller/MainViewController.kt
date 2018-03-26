@@ -2,25 +2,21 @@ package com.tiem625.modemarker.controller
 
 import com.tiem625.modemarker.data.SpriteSheetMetaInfo
 import javafx.scene.image.Image
-import javafx.util.StringConverter
 import tornadofx.*
 import java.io.File
 
 class MainViewController: Controller() {
 
     val loadedSheetInfo: SpriteSheetMetaInfo = SpriteSheetMetaInfo()
-    var loadedImage: Image? = null
+    var loadedImage: Image? by property()
+
+    fun loadedImageProperty() = getProperty(MainViewController::loadedImage)
 
     fun convertSpriteDimensions(sheetInfo: SpriteSheetMetaInfo): String {
 
         val dimensions = sheetInfo.getSpriteDimensions()
         return "(${dimensions.width}x${dimensions.height})"
     }
-
-
-
-
-
 
     fun loadImage(file: File) {
 

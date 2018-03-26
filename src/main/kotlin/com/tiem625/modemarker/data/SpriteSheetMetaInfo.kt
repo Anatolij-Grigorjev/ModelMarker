@@ -54,8 +54,8 @@ class SpriteSheetMetaInfo(
         } else {
 
             SpriteDimensions(
-                    width = sheetWidth - ((sheetCols - 1) * sheetSpriteSpacingX) / sheetCols,
-                    height = sheetHeight - ((sheetRows - 1) * sheetSpriteSpacingY) / sheetRows
+                    width = (sheetWidth - ((sheetCols - 1) * sheetSpriteSpacingX)) / sheetCols,
+                    height = (sheetHeight - ((sheetRows - 1) * sheetSpriteSpacingY)) / sheetRows
             )
         }
     }
