@@ -183,6 +183,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                         ))
                     }, mainViewController.loadedImageProperty()))
 
+                    mainViewController.addGridListeners(this)
                 }
             }
         }

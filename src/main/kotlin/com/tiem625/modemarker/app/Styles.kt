@@ -90,6 +90,7 @@ class Styles : Stylesheet() {
 
             minWidth = 500.px
             minHeight = 400.px
+            gridLinesVisible = true
         }
     }
 }
