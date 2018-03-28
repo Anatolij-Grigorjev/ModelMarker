@@ -1,8 +1,10 @@
 package com.tiem625.modemarker.controller
 
 import com.tiem625.modemarker.data.SpriteSheetMetaInfo
+import javafx.collections.ObservableList
 import javafx.scene.image.Image
 import javafx.scene.layout.ColumnConstraints
+import javafx.scene.layout.ConstraintsBase
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.RowConstraints
 import tornadofx.*
@@ -43,41 +45,34 @@ class MainViewController: Controller() {
 
         loadedSheetInfo.sheetRowsProperty().addListener { observable, oldValue, newValue ->
 
-            if(gridChangeOk(newValue)) {
-
-                val numRows = newValue
-
-                gridPane.rowConstraints.clear()
-
-                (0 until numRows).forEach {
-
-                    gridPane.rowConstraints.add(RowConstraints().apply {
-
-                        percentHeight = 100.0 / numRows
-                    })
+            refreshConstraints(newValue, gridPane.rowConstraints, { newN ->
+                RowConstraints().apply {
+                    percentHeight = 100.0 / newN
                 }
-
-            }
+            })
         }
 
         loadedSheetInfo.sheetColsProperty().addListener({ observable, oldValue, newValue ->
 
-            if(gridChangeOk(newValue)) {
-
-                val numCols = newValue
-
-                gridPane.columnConstraints.clear()
-
-                (0 until numCols).forEach {
-
-                    gridPane.columnConstraints.add(ColumnConstraints().apply {
-
-                        percentWidth = 100.0 / numCols
-                    })
+            refreshConstraints(newValue, gridPane.columnConstraints, { newN ->
+                ColumnConstraints().apply {
+                    percentWidth = 100.0 / newN
                 }
-
-            }
+            })
         })
+    }
+
+    private fun <T: ConstraintsBase> refreshConstraints(newN: Int, constraintsList: ObservableList<T>, creator: (Int) -> T) {
+
+        if (gridChangeOk(newN)) {
+
+            constraintsList.clear()
+
+            (0 until newN).forEach {
+
+                constraintsList.add(creator(newN))
+            }
+        }
     }
 
     private fun gridChangeOk(newValue: Int) =
