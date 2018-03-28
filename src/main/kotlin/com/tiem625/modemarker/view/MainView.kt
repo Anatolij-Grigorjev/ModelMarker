@@ -184,6 +184,8 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                     }, mainViewController.loadedImageProperty()))
 
                     mainViewController.addGridListeners(this)
+                    hgapProperty().bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingXProperty())
+                    vgapProperty().bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingYProperty())
                 }
             }
         }
