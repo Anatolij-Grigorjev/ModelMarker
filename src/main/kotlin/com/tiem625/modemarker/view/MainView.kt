@@ -137,7 +137,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                     mainViewController.loadedSheetInfo.let {
 
-                        val binding = Bindings.createStringBinding({
+                        textProperty().bind(Bindings.createStringBinding({
 
                             mainViewController.convertSpriteDimensions(it)
                         }, arrayOf(
@@ -147,9 +147,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                                 it.sheetColsProperty(),
                                 it.sheetSpriteSpacingXProperty(),
                                 it.sheetSpriteSpacingYProperty())
-                        )
-
-                        textProperty().bind(binding)
+                        ))
                     }
                 }
                 separator(Orientation.VERTICAL)
@@ -171,6 +169,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                     backgroundProperty().bind(Bindings.createObjectBinding(Callable<Background> {
                         mainViewController.loadedImage?.let {
+
                             Background(BackgroundImage(
                                     it,
                                     BackgroundRepeat.NO_REPEAT,
@@ -178,10 +177,24 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                                     BackgroundPosition.CENTER,
                                     BackgroundSize.DEFAULT
                             ))
+
                         } ?: Background(BackgroundFill(
                                 Color.GREY, CornerRadii(1.0), Insets.EMPTY
                         ))
                     }, mainViewController.loadedImageProperty()))
+
+                    val imgWidthBinding = Bindings.createObjectBinding(Callable<Double> {
+                                mainViewController.loadedImage?.width ?: 0.0
+                            }, mainViewController.loadedImageProperty()
+                    )
+                    val imgHeightBinding = Bindings.createObjectBinding(Callable<Double> {
+                        mainViewController.loadedImage?.height ?: 0.0
+                    }, mainViewController.loadedImageProperty())
+
+                    minWidthProperty().bind(imgWidthBinding)
+                    maxWidthProperty().bind(imgWidthBinding)
+                    minHeightProperty().bind(imgHeightBinding)
+                    minHeightProperty().bind(imgHeightBinding)
 
                     mainViewController.addGridListeners(this)
                     hgapProperty().bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingXProperty())

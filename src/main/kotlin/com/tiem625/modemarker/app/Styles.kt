@@ -88,8 +88,8 @@ class Styles : Stylesheet() {
 
         imgPane {
 
-            minWidth = 500.px
-            minHeight = 400.px
+            minWidth = 100.px
+            minHeight = 100.px
             gridLinesVisible = true
 
         }
