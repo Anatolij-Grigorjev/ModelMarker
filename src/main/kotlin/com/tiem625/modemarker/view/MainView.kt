@@ -5,6 +5,7 @@ import com.tiem625.modemarker.app.Version
 import com.tiem625.modemarker.controller.MainViewController
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
+import javafx.collections.ObservableList
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
 import javafx.scene.control.Label
@@ -26,6 +27,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
     lateinit var selectedRowColLbl: Label
 
     val mainViewController: MainViewController by inject()
+    val imgGridPane: MainGridPane by inject()
 
     val fileChooser = FileChooser().apply {
         this.extensionFilters.addAll(listOf(
@@ -40,7 +42,6 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
     }
 
-    lateinit var imgGridPane: GridPane
 
     override val root = borderpane {
 
@@ -160,46 +161,9 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
         //image grid in the center
         center {
             hbox {
-
                 addClass(Styles.imgPaneContainer)
 
-                imgGridPane = gridpane {
-
-                    addClass(Styles.imgPane)
-
-                    backgroundProperty().bind(Bindings.createObjectBinding(Callable<Background> {
-                        mainViewController.loadedImage?.let {
-
-                            Background(BackgroundImage(
-                                    it,
-                                    BackgroundRepeat.NO_REPEAT,
-                                    BackgroundRepeat.NO_REPEAT,
-                                    BackgroundPosition.CENTER,
-                                    BackgroundSize.DEFAULT
-                            ))
-
-                        } ?: Background(BackgroundFill(
-                                Color.GREY, CornerRadii(1.0), Insets.EMPTY
-                        ))
-                    }, mainViewController.loadedImageProperty()))
-
-                    val imgWidthBinding = Bindings.createObjectBinding(Callable<Double> {
-                                mainViewController.loadedImage?.width ?: 0.0
-                            }, mainViewController.loadedImageProperty()
-                    )
-                    val imgHeightBinding = Bindings.createObjectBinding(Callable<Double> {
-                        mainViewController.loadedImage?.height ?: 0.0
-                    }, mainViewController.loadedImageProperty())
-
-                    minWidthProperty().bind(imgWidthBinding)
-                    maxWidthProperty().bind(imgWidthBinding)
-                    minHeightProperty().bind(imgHeightBinding)
-                    minHeightProperty().bind(imgHeightBinding)
-
-                    mainViewController.addGridListeners(this)
-                    hgapProperty().bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingXProperty())
-                    vgapProperty().bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingYProperty())
-                }
+                this += imgGridPane.root
             }
         }
     }

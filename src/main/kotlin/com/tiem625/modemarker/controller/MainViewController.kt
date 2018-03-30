@@ -30,52 +30,17 @@ class MainViewController: Controller() {
         loadedImage?.let {
 
             loadedSheetInfo.apply {
-                sheetWidth = it.width
-                sheetHeight = it.height
-                sheetRows = 1
-                sheetCols = 1
-                sheetSpriteSpacingX = 0
-                sheetSpriteSpacingY = 0
+                sheetWidthProperty().set(it.width)
+                sheetHeightProperty().set(it.height)
+                sheetRowsProperty().set(1)
+                sheetColsProperty().set(1)
+                sheetSpriteSpacingXProperty().set(0)
+                sheetSpriteSpacingYProperty().set(0)
             }
 
         }
     }
 
-    fun addGridListeners(gridPane: GridPane) {
 
-        loadedSheetInfo.sheetRowsProperty().addListener { observable, oldValue, newValue ->
-
-            refreshConstraints(newValue, gridPane.rowConstraints, { newN ->
-                RowConstraints().apply {
-                    percentHeight = 100.0 / newN
-                }
-            })
-        }
-
-        loadedSheetInfo.sheetColsProperty().addListener({ observable, oldValue, newValue ->
-
-            refreshConstraints(newValue, gridPane.columnConstraints, { newN ->
-                ColumnConstraints().apply {
-                    percentWidth = 100.0 / newN
-                }
-            })
-        })
-    }
-
-    private fun <T: ConstraintsBase> refreshConstraints(newN: Int, constraintsList: ObservableList<T>, creator: (Int) -> T) {
-
-        if (gridChangeOk(newN)) {
-
-            constraintsList.clear()
-
-            (0 until newN).forEach {
-
-                constraintsList.add(creator(newN))
-            }
-        }
-    }
-
-    private fun gridChangeOk(newValue: Int) =
-            newValue >= 1 && loadedImage != null
 
 }

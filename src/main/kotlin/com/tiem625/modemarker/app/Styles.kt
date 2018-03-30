@@ -16,6 +16,7 @@ class Styles : Stylesheet() {
         val imgPane by cssclass()
         val imgPaneContainer by cssclass()
         val noEdit by cssclass()
+        val gridCellButton by cssclass()
     }
 
     init {
@@ -93,5 +94,15 @@ class Styles : Stylesheet() {
             gridLinesVisible = true
 
         }
+
+        gridCellButton {
+
+            backgroundColor = multi(Color.TRANSPARENT)
+            borderWidth = multi(box(2.px))
+            borderColor = multi(box(Color.GREEN))
+            maxWidth = Double.MAX_VALUE.px
+            maxHeight = Double.MAX_VALUE.px
+        }
     }
+
 }

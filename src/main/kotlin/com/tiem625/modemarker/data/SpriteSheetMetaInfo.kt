@@ -29,7 +29,7 @@ class SpriteSheetMetaInfo(
     var sheetSpriteSpacingY: Int by property(sheetSpriteSpacingY)
     fun sheetSpriteSpacingYProperty() = getProperty(SpriteSheetMetaInfo::sheetSpriteSpacingY)
 
-    constructor():this(0.0, 0.0, 0, 0, 0, 0)
+    constructor():this(0.0, 0.0, 1, 1, 0, 0)
 
     data class SpriteDimensions(
             val width: Double,
