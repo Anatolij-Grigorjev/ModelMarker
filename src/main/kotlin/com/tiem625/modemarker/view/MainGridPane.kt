@@ -15,6 +15,8 @@ class MainGridPane : View("Sprites Grid") {
 
     val mainViewController: MainViewController by inject()
 
+    val gridButtons: MutableMap<Pair<Int, Int>, Button> = mutableMapOf()
+
     override val root = gridpane {
 
         addClass(Styles.imgPane)
@@ -27,8 +29,14 @@ class MainGridPane : View("Sprites Grid") {
                         BackgroundRepeat.NO_REPEAT,
                         BackgroundRepeat.NO_REPEAT,
                         BackgroundPosition.CENTER,
-                        BackgroundSize.DEFAULT
-                ))
+                        BackgroundSize(
+                                BackgroundSize.AUTO,
+                                BackgroundSize.AUTO,
+                                true,
+                                true,
+                                true,
+                                true
+                        )))
 
             } ?: Background(BackgroundFill(
                     Color.GREY, CornerRadii(1.0), Insets.EMPTY
@@ -78,6 +86,7 @@ class MainGridPane : View("Sprites Grid") {
 
         //clear current children
         gridPane.children.clear()
+        gridButtons.clear()
 
         log.info("Creating ${gridPane.rowConstraints.size}x${gridPane.columnConstraints.size} buttons!")
 
@@ -85,9 +94,34 @@ class MainGridPane : View("Sprites Grid") {
         for (rIdx in 0 until gridPane.rowConstraints.size) {
             for (cIdx in 0 until gridPane.columnConstraints.size) {
 
-                gridPane.add(Button().apply {
+                val button = Button().apply {
                     addClass(Styles.gridCellButton)
-                }, cIdx, rIdx)
+
+                    setOnAction {
+                        log.info("Clicked button ($rIdx; $cIdx)")
+
+                        //clear style from prev selected button
+                        mainViewController.selectedCell?.let { selection ->
+
+                            val node = gridButtons[selection]
+                            node?.removeClass(Styles.selectedGridCellButton)
+                        }
+
+                        //deselect button
+                        if (mainViewController.selectedCell == Pair(rIdx, cIdx)) {
+
+                            mainViewController.selectedCell = null
+                        } else {
+
+                            //select button
+                            addClass(Styles.selectedGridCellButton)
+                            mainViewController.selectedCell = Pair(rIdx, cIdx)
+                        }
+
+                    }
+                }
+                gridPane.add(button, cIdx, rIdx)
+                gridButtons[Pair(rIdx, cIdx)] = button
             }
         }
     }

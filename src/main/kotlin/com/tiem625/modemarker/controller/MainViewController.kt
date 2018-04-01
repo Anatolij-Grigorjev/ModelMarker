@@ -14,8 +14,10 @@ class MainViewController: Controller() {
 
     val loadedSheetInfo: SpriteSheetMetaInfo = SpriteSheetMetaInfo()
     var loadedImage: Image? by property()
+    var selectedCell: Pair<Int, Int>? by property()
 
     fun loadedImageProperty() = getProperty(MainViewController::loadedImage)
+    fun selectedCellProperty() = getProperty(MainViewController::selectedCell)
 
     fun convertSpriteDimensions(sheetInfo: SpriteSheetMetaInfo): String {
 
@@ -40,6 +42,15 @@ class MainViewController: Controller() {
 
         }
     }
+
+    fun selectButton(rIdx: Int, cIdx: Int) {
+
+        selectedCell = Pair(rIdx, cIdx)
+    }
+
+
+
+
 
 
 

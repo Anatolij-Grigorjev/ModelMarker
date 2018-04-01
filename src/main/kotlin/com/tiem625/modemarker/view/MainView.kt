@@ -8,12 +8,15 @@ import javafx.beans.binding.Bindings
 import javafx.collections.ObservableList
 import javafx.geometry.Insets
 import javafx.geometry.Orientation
+import javafx.geometry.Pos
+import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import javafx.scene.layout.*
 import javafx.scene.paint.Color
+import javafx.scene.text.TextAlignment
 import javafx.stage.FileChooser
 import tornadofx.*
 import java.util.concurrent.Callable
@@ -135,7 +138,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                 label("Sprite dimensions: ")
                 spriteSizeLbl = label {
-
+                    HBox.setHgrow(this, Priority.ALWAYS)
                     mainViewController.loadedSheetInfo.let {
 
                         textProperty().bind(Bindings.createStringBinding({
@@ -153,7 +156,17 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                 }
                 separator(Orientation.VERTICAL)
                 label("Selected row/col: ")
-                selectedRowColLbl = label()
+                selectedRowColLbl = label {
+
+                    contentDisplay = ContentDisplay.LEFT
+
+                    textProperty().bind(Bindings.createStringBinding({
+
+                        mainViewController.selectedCell?.let {
+                            "(${it.first};${it.second})"
+                        } ?: ""
+                    }, arrayOf(mainViewController.selectedCellProperty())))
+                }
                 separator(Orientation.VERTICAL)
             }
         }

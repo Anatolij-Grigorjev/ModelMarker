@@ -17,6 +17,7 @@ class Styles : Stylesheet() {
         val imgPaneContainer by cssclass()
         val noEdit by cssclass()
         val gridCellButton by cssclass()
+        val selectedGridCellButton by cssclass()
     }
 
     init {
@@ -62,7 +63,9 @@ class Styles : Stylesheet() {
 
         statusBar {
             maxHeight = 5.em
-            spacing = 1.em
+            spacing = 0.5.em
+
+            prefWidth = 100.percent
 
             borderColor = multi(box(Paint.valueOf("grey")))
 
@@ -74,6 +77,8 @@ class Styles : Stylesheet() {
 
                     alignment = Pos.CENTER_LEFT
                 }
+                borderColor = multi(box(Color.BLACK))
+                borderWidth = multi(box(1.px))
             }
         }
 
@@ -103,6 +108,12 @@ class Styles : Stylesheet() {
             maxWidth = Double.MAX_VALUE.px
             maxHeight = Double.MAX_VALUE.px
         }
+
+        selectedGridCellButton {
+
+            backgroundColor = multi(Color(0.0, 0.0, 0.5, 0.25))
+        }
+
     }
 
 }
