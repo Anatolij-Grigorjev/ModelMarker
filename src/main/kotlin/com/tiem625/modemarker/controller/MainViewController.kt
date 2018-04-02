@@ -27,7 +27,13 @@ class MainViewController: Controller() {
 
     fun loadImage(file: File) {
 
-        loadedImage = Image(file.inputStream(), 0.0, 0.0, true, true)
+        loadedImage = Image(
+                file.inputStream(),
+                0.0,
+                0.0,
+                false,
+                true
+        )
 
         loadedImage?.let {
 

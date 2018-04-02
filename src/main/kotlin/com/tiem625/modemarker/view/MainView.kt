@@ -5,18 +5,14 @@ import com.tiem625.modemarker.app.Version
 import com.tiem625.modemarker.controller.MainViewController
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
-import javafx.collections.ObservableList
-import javafx.geometry.Insets
 import javafx.geometry.Orientation
-import javafx.geometry.Pos
 import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
-import javafx.scene.layout.*
-import javafx.scene.paint.Color
-import javafx.scene.text.TextAlignment
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import javafx.stage.FileChooser
 import tornadofx.*
 import java.util.concurrent.Callable
@@ -93,14 +89,14 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                                 bind(mainViewController.loadedSheetInfo.sheetWidthProperty())
                             }
                         }
-                        field ("Image Height:") {
+                        field("Image Height:") {
                             textfield {
                                 isEditable = false
                                 addClass(Styles.noEdit)
                                 bind(mainViewController.loadedSheetInfo.sheetHeightProperty())
                             }
                         }
-                        field("Spritesheet Rows:"){
+                        field("Spritesheet Rows:") {
                             textfield {
 
                                 bind(mainViewController.loadedSheetInfo.sheetRowsProperty())
@@ -124,7 +120,17 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                                 bind(mainViewController.loadedSheetInfo.sheetSpriteSpacingYProperty())
                             }
                         }
+
+                        field {
+                            button("Edit Sprite...") {
+
+                                enableWhen(Bindings.createBooleanBinding(Callable<Boolean> {
+                                    mainViewController.selectedCell != null
+                                }, mainViewController.selectedCellProperty()))
+                            }
+                        }
                     }
+
                 }
 
             }
@@ -173,10 +179,32 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
         //image grid in the center
         center {
-            hbox {
+            stackpane {
                 addClass(Styles.imgPaneContainer)
 
-                this += imgGridPane.root
+                val imgView = imageview(mainViewController.loadedImageProperty()) {
+
+                    imageProperty().addListener { obs, old, new ->
+                        new?.let {
+
+                            fitWidth = new.width
+                            fitHeight = new.height
+                        }
+                    }
+                }
+
+                this += imgView
+
+                this += imgGridPane.root.apply {
+
+                    prefWidthProperty().bind(imgView.fitWidthProperty())
+                    minWidthProperty().bind(imgView.fitWidthProperty())
+                    maxWidthProperty().bind(imgView.fitWidthProperty())
+
+                    prefHeightProperty().bind(imgView.fitHeightProperty())
+                    minHeightProperty().bind(imgView.fitHeightProperty())
+                    maxHeightProperty().bind(imgView.fitHeightProperty())
+                }
             }
         }
     }

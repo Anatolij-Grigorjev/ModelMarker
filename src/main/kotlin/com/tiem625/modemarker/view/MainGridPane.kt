@@ -21,59 +21,26 @@ class MainGridPane : View("Sprites Grid") {
 
         addClass(Styles.imgPane)
 
-        backgroundProperty().bind(Bindings.createObjectBinding(Callable<Background> {
-            mainViewController.loadedImage?.let {
-
-                Background(BackgroundImage(
-                        it,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.CENTER,
-                        BackgroundSize(
-                                BackgroundSize.AUTO,
-                                BackgroundSize.AUTO,
-                                true,
-                                true,
-                                true,
-                                true
-                        )))
-
-            } ?: Background(BackgroundFill(
-                    Color.GREY, CornerRadii(1.0), Insets.EMPTY
-            ))
-        }, mainViewController.loadedImageProperty()))
-
-        val imgWidthBinding = Bindings.createObjectBinding(Callable<Double> {
-            mainViewController.loadedImage?.width ?: 0.0
-        }, mainViewController.loadedImageProperty()
-        )
-        val imgHeightBinding = Bindings.createObjectBinding(Callable<Double> {
-            mainViewController.loadedImage?.height ?: 0.0
-        }, mainViewController.loadedImageProperty())
-
-        minWidthProperty().bind(imgWidthBinding)
-        maxWidthProperty().bind(imgWidthBinding)
-        minHeightProperty().bind(imgHeightBinding)
-        minHeightProperty().bind(imgHeightBinding)
-
         mainViewController.loadedSheetInfo.sheetRowsProperty().addListener { observable, oldValue, newValue ->
-
-            refreshConstraints(newValue, rowConstraints, { newN ->
-                RowConstraints().apply {
-                    percentHeight = 100.0 / newN
-                }
-            })
-            refillWithChildren(this)
+            newValue?.let {
+                refreshConstraints(newValue, rowConstraints, { newN ->
+                    RowConstraints().apply {
+                        percentHeight = 100.0 / newN
+                    }
+                })
+                refillWithChildren(this)
+            }
         }
 
         mainViewController.loadedSheetInfo.sheetColsProperty().addListener({ observable, oldValue, newValue ->
-
-            refreshConstraints(newValue, columnConstraints, { newN ->
-                ColumnConstraints().apply {
-                    percentWidth = 100.0 / newN
-                }
-            })
-            refillWithChildren(this)
+            newValue?.let {
+                refreshConstraints(newValue, columnConstraints, { newN ->
+                    ColumnConstraints().apply {
+                        percentWidth = 100.0 / newN
+                    }
+                })
+                refillWithChildren(this)
+            }
         })
 
 

@@ -27,6 +27,12 @@ class Styles : Stylesheet() {
 
             fieldset {
 
+                button {
+
+                    padding = box(0.5.em, 0.em)
+                    maxWidth = Double.MAX_VALUE.px
+                }
+
                 label {
                     padding = box(0.5.em, 0.em)
                     fontSize = 20.px
@@ -98,6 +104,7 @@ class Styles : Stylesheet() {
             minHeight = 100.px
             gridLinesVisible = true
 
+            backgroundColor = multi(Color.TRANSPARENT)
         }
 
         gridCellButton {
