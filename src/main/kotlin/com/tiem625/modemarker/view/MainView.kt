@@ -6,6 +6,7 @@ import com.tiem625.modemarker.controller.MainViewController
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
 import javafx.geometry.Orientation
+import javafx.geometry.Pos
 import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
 import javafx.scene.input.KeyCode
@@ -27,6 +28,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
     val mainViewController: MainViewController by inject()
     val imgGridPane: MainGridPane by inject()
+    val editSpriteView: EditSpriteView by inject()
 
     val fileChooser = FileChooser().apply {
         this.extensionFilters.addAll(listOf(
@@ -121,12 +123,22 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
                             }
                         }
 
-                        field {
+                        vbox {
+
+                            addClass(Styles.btnHolder)
+
                             button("Edit Sprite...") {
 
                                 enableWhen(Bindings.createBooleanBinding(Callable<Boolean> {
                                     mainViewController.selectedCell != null
                                 }, mainViewController.selectedCellProperty()))
+
+                                shortcut(mainPlus(KeyCode.E))
+
+                                setOnAction {
+
+
+                                }
                             }
                         }
                     }

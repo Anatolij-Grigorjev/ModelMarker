@@ -13,6 +13,7 @@ class Styles : Stylesheet() {
         val info by cssclass()
         val imgMeta by cssclass()
         val heading by cssclass()
+        val btnHolder by cssclass()
         val imgPane by cssclass()
         val imgPaneContainer by cssclass()
         val noEdit by cssclass()
@@ -27,10 +28,17 @@ class Styles : Stylesheet() {
 
             fieldset {
 
-                button {
+                btnHolder {
 
-                    padding = box(0.5.em, 0.em)
-                    maxWidth = Double.MAX_VALUE.px
+                    alignment = Pos.BOTTOM_CENTER
+
+                    minHeight = 4.em
+
+                    button {
+
+                        padding = box(0.5.em, 0.em)
+                        maxWidth = Double.MAX_VALUE.px
+                    }
                 }
 
                 label {

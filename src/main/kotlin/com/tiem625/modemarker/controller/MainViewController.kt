@@ -38,12 +38,13 @@ class MainViewController: Controller() {
         loadedImage?.let {
 
             loadedSheetInfo.apply {
-                sheetWidthProperty().set(it.width)
-                sheetHeightProperty().set(it.height)
-                sheetRowsProperty().set(1)
-                sheetColsProperty().set(1)
-                sheetSpriteSpacingXProperty().set(0)
-                sheetSpriteSpacingYProperty().set(0)
+                loadedSheetInfo.spriteSheetName = file.name
+                sheetWidth = it.width
+                sheetHeight = it.height
+                sheetRows = 1
+                sheetCols = 1
+                sheetSpriteSpacingX = 0
+                sheetSpriteSpacingY = 0
             }
 
         }

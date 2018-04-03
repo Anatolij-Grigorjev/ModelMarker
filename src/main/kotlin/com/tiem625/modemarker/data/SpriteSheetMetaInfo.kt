@@ -29,6 +29,9 @@ class SpriteSheetMetaInfo(
     var sheetSpriteSpacingY: Int by property(sheetSpriteSpacingY)
     fun sheetSpriteSpacingYProperty() = getProperty(SpriteSheetMetaInfo::sheetSpriteSpacingY)
 
+    var spriteSheetName: String by property("")
+    fun spriteSheetNameProperty() = getProperty(SpriteSheetMetaInfo::spriteSheetName)
+
     constructor():this(0.0, 0.0, 1, 1, 0, 0)
 
     data class SpriteDimensions(
