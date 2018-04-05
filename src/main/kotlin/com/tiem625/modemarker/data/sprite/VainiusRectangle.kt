@@ -5,6 +5,9 @@ import tornadofx.*
 
 class VainiusRectangle: WithPropsTable<String, String>() {
 
+    var name: String by property("")
+    fun nameProperty() = getProperty(VainiusRectangle::name)
+
     var width: Int by property(0)
     fun widthProeprty() = getProperty(VainiusRectangle::width)
 

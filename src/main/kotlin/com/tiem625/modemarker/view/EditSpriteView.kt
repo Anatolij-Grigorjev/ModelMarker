@@ -12,9 +12,33 @@ class EditSpriteView : View("Edit Sprite") {
         //sprite label and ROW/COL
         top {
 
+            hbox {
+                vbox {
+                    label("Sprite Name")
+                    textfield {
+                        bind(editSpriteViewController.spriteModel.spriteNameProperty())
+                    }
+                }
+                vbox {
+                    label("Sprite Row Idx")
+                    textfield {
+
+                        bind(editSpriteViewController.spriteModel.spriteRowIdxProperty())
+                    }
+                }
+                vbox {
+                    label("Sprite Col Idx")
+                    textfield {
+
+                        bind(editSpriteViewController.spriteModel.spriteColIdxProperty())
+                    }
+                }
+            }
         }
 
         //left is meta info about main rects + SAVE
+        //if not array picked,
+        //and more than one rect, they will be keys in prop object
         left {
 
         }

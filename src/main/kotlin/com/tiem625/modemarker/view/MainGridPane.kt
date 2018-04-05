@@ -2,6 +2,7 @@ package com.tiem625.modemarker.view
 
 import com.tiem625.modemarker.app.Styles
 import com.tiem625.modemarker.controller.MainViewController
+import com.tiem625.modemarker.styles.MainViewStyles
 import javafx.beans.binding.Bindings
 import javafx.collections.ObservableList
 import javafx.geometry.Insets
@@ -19,7 +20,7 @@ class MainGridPane : View("Sprites Grid") {
 
     override val root = gridpane {
 
-        addClass(Styles.imgPane)
+        addClass(MainViewStyles.imgPane)
 
         mainViewController.loadedSheetInfo.sheetRowsProperty().addListener { observable, oldValue, newValue ->
             newValue?.let {
@@ -62,7 +63,7 @@ class MainGridPane : View("Sprites Grid") {
             for (cIdx in 0 until gridPane.columnConstraints.size) {
 
                 val button = Button().apply {
-                    addClass(Styles.gridCellButton)
+                    addClass(MainViewStyles.gridCellButton)
 
                     setOnAction {
                         log.info("Clicked button ($rIdx; $cIdx)")
@@ -71,7 +72,7 @@ class MainGridPane : View("Sprites Grid") {
                         mainViewController.selectedCell?.let { selection ->
 
                             val node = gridButtons[selection]
-                            node?.removeClass(Styles.selectedGridCellButton)
+                            node?.removeClass(MainViewStyles.selectedGridCellButton)
                         }
 
                         //deselect button
@@ -81,7 +82,7 @@ class MainGridPane : View("Sprites Grid") {
                         } else {
 
                             //select button
-                            addClass(Styles.selectedGridCellButton)
+                            addClass(MainViewStyles.selectedGridCellButton)
                             mainViewController.selectedCell = Pair(rIdx, cIdx)
                         }
 

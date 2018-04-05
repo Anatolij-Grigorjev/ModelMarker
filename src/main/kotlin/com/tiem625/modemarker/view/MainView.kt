@@ -3,6 +3,7 @@ package com.tiem625.modemarker.view
 import com.tiem625.modemarker.app.Styles
 import com.tiem625.modemarker.app.Version
 import com.tiem625.modemarker.controller.MainViewController
+import com.tiem625.modemarker.styles.MainViewStyles
 import javafx.application.Platform
 import javafx.beans.binding.Bindings
 import javafx.geometry.Orientation
@@ -28,7 +29,6 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
     val mainViewController: MainViewController by inject()
     val imgGridPane: MainGridPane by inject()
-    val editSpriteView: EditSpriteView by inject()
 
     val fileChooser = FileChooser().apply {
         this.extensionFilters.addAll(listOf(
@@ -78,23 +78,23 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
         left {
             hbox {
 
-                addClass(Styles.imgMeta)
+                addClass(MainViewStyles.imgMeta)
                 form {
                     fieldset("Image Info", labelPosition = Orientation.VERTICAL) {
 
-                        addClass(Styles.heading)
+                        addClass(MainViewStyles.heading)
 
                         field("Image Width:") {
                             textfield {
                                 isEditable = false
-                                addClass(Styles.noEdit)
+                                addClass(MainViewStyles.noEdit)
                                 bind(mainViewController.loadedSheetInfo.sheetWidthProperty())
                             }
                         }
                         field("Image Height:") {
                             textfield {
                                 isEditable = false
-                                addClass(Styles.noEdit)
+                                addClass(MainViewStyles.noEdit)
                                 bind(mainViewController.loadedSheetInfo.sheetHeightProperty())
                             }
                         }
@@ -125,7 +125,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                         vbox {
 
-                            addClass(Styles.btnHolder)
+                            addClass(MainViewStyles.btnHolder)
 
                             button("Edit Sprite...") {
 
@@ -152,7 +152,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
         bottom {
 
             hbox {
-                addClass(Styles.statusBar)
+                addClass(MainViewStyles.statusBar)
 
                 label("Sprite dimensions: ")
                 spriteSizeLbl = label {
@@ -192,7 +192,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
         //image grid in the center
         center {
             stackpane {
-                addClass(Styles.imgPaneContainer)
+                addClass(MainViewStyles.imgPaneContainer)
 
                 val imgView = imageview(mainViewController.loadedImageProperty()) {
 
