@@ -1,6 +1,8 @@
 package com.tiem625.modemarker.view
 
 import com.tiem625.modemarker.controller.EditSpriteViewController
+import com.tiem625.modemarker.styles.MainViewStyles
+import javafx.geometry.Orientation
 import tornadofx.*
 
 class EditSpriteView : View("Edit Sprite") {
@@ -11,6 +13,7 @@ class EditSpriteView : View("Edit Sprite") {
 
         //sprite label and ROW/COL
         top {
+
 
             hbox {
                 vbox {
@@ -40,6 +43,44 @@ class EditSpriteView : View("Edit Sprite") {
         //if not array picked,
         //and more than one rect, they will be keys in prop object
         left {
+
+            hbox {
+
+
+                form {
+                    fieldset("Rects Model", labelPosition = Orientation.VERTICAL) {
+
+                        field("Rects Prop Name:") {
+                            textfield {
+
+                                bind(editSpriteViewController.rectModel.rectKeyNameProperty())
+                            }
+                        }
+                        field("Rects Prop is Array:") {
+                            checkbox {
+
+                                bind(editSpriteViewController.rectModel.isPropArrayProperty())
+                            }
+                        }
+                        field("Model Props:") {
+
+                            tableview(editSpriteViewController.rectModel.propsTableProperty())
+                        }
+
+                        vbox {
+
+                            addClass(MainViewStyles.btnHolder)
+
+                            button("Apply Changes") {
+
+
+                            }
+                        }
+                    }
+
+                }
+
+            }
 
         }
 

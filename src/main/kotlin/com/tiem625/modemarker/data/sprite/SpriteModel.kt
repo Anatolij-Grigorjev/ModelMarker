@@ -13,7 +13,4 @@ class SpriteModel {
     var spriteName: String by property("")
     fun spriteNameProperty() = getProperty(SpriteModel::spriteName)
 
-    var spriteRects: MutableList<VainiusRectangle> by property(mutableListOf())
-    fun spriteRectsProperty() = getProperty(SpriteModel::spriteRects)
-
 }

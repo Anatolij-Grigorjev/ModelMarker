@@ -11,6 +11,6 @@ class RectModel: WithPropsTable<String, String>() {
     var isPropArray: Boolean by property(false)
     fun isPropArrayProperty() = getProperty(RectModel::isPropArray)
 
-
-
+    var spriteRects: MutableList<VainiusRectangle> by property(mutableListOf())
+    fun spriteRectsProperty() = getProperty(RectModel::spriteRects)
 }

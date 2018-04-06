@@ -4,6 +4,6 @@ import tornadofx.*
 
 abstract class WithPropsTable<K, V> {
 
-    var propsTable: MutableMap<K, V> by property(mutableMapOf())
+    var propsTable: MutableList<Map.Entry<K, V>> by property(mutableListOf())
     fun propsTableProperty() = getProperty(WithPropsTable<K, V>::propsTable)
 }
