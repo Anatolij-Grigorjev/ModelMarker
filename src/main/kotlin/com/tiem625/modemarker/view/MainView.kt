@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.stage.FileChooser
+import javafx.stage.StageStyle
 import tornadofx.*
 import java.util.concurrent.Callable
 
@@ -29,6 +30,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
     val mainViewController: MainViewController by inject()
     val imgGridPane: MainGridPane by inject()
+    val editSpriteView: EditSpriteView by inject()
 
     val fileChooser = FileChooser().apply {
         this.extensionFilters.addAll(listOf(
@@ -137,7 +139,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                                 setOnAction {
 
-
+                                    editSpriteView.openModal(StageStyle.UTILITY)
                                 }
                             }
                         }
