@@ -16,7 +16,6 @@ class MainViewStyles: Stylesheet() {
         val heading by cssclass()
         val btnHolder by cssclass()
         val imgPane by cssclass()
-        val imgPaneContainer by cssclass()
         val noEdit by cssclass()
         val gridCellButton by cssclass()
         val selectedGridCellButton by cssclass()
@@ -95,16 +94,6 @@ class MainViewStyles: Stylesheet() {
                 borderColor = multi(box(Color.BLACK))
                 borderWidth = multi(box(1.px))
             }
-        }
-
-        imgPaneContainer {
-
-            minWidth = 100.percent
-            minHeight = 100.percent
-
-            padding = box(5.em)
-            alignment = Pos.CENTER
-            backgroundColor = multi(Color.GREY)
         }
 
         imgPane {

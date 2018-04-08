@@ -1,6 +1,8 @@
 package com.tiem625.modemarker.view
 
+import com.tiem625.modemarker.app.Styles
 import com.tiem625.modemarker.controller.EditSpriteViewController
+import com.tiem625.modemarker.styles.EditSpriteViewStyles
 import com.tiem625.modemarker.styles.MainViewStyles
 import javafx.geometry.Orientation
 import javafx.scene.control.ContentDisplay
@@ -18,11 +20,13 @@ class EditSpriteView : View("Edit Sprite") {
 
     override val root = borderpane {
 
+        addClass(Styles.outerContainer)
         //sprite label and ROW/COL
         top {
 
-
             hbox {
+
+                addClass(EditSpriteViewStyles.spriteHeader)
                 vbox {
                     label("Sprite Name")
                     textfield {
@@ -71,7 +75,10 @@ class EditSpriteView : View("Edit Sprite") {
                         }
                         field("Model Props:") {
 
-                            tableview(editSpriteViewController.rectModel.propsTableProperty())
+                            tableview(editSpriteViewController.rectModel.propsTableProperty()) {
+
+                                addClass(EditSpriteViewStyles.propsTable)
+                            }
                         }
 
                         vbox {
@@ -121,7 +128,10 @@ class EditSpriteView : View("Edit Sprite") {
         //image with a certain viewport on top of which to daw rectangles
         center {
 
+            addClass(EditSpriteViewStyles.centerContainer)
             stackpane {
+
+                addClass(Styles.imgPaneContainer)
 
                 val imgView = imageview(editSpriteViewController.loadedImageProperty()) {
 
@@ -137,7 +147,7 @@ class EditSpriteView : View("Edit Sprite") {
                 this += imgView
 
                 this += canvas {
-                    
+
                 }
             }
         }

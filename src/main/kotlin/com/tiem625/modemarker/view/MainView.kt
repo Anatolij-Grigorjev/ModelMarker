@@ -48,8 +48,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
     override val root = borderpane {
 
-        minWidth = 640.0
-        minHeight = 480.0
+        addClass(Styles.outerContainer)
 
         //menu bar on the top
         top {
@@ -139,7 +138,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                                 setOnAction {
 
-                                    editSpriteView.openModal(StageStyle.UTILITY)
+                                    editSpriteView.openModal()
                                 }
                             }
                         }
@@ -194,7 +193,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
         //image grid in the center
         center {
             stackpane {
-                addClass(MainViewStyles.imgPaneContainer)
+                addClass(Styles.imgPaneContainer)
 
                 val imgView = imageview(mainViewController.loadedImageProperty()) {
 
