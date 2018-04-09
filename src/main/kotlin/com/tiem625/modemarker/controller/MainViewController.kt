@@ -16,6 +16,8 @@ class MainViewController: Controller() {
     var loadedImage: Image? by property()
     var selectedCell: Pair<Int, Int>? by property()
 
+    val editSpriteViewController: EditSpriteViewController by inject()
+
     fun loadedImageProperty() = getProperty(MainViewController::loadedImage)
     fun selectedCellProperty() = getProperty(MainViewController::selectedCell)
 
@@ -38,7 +40,7 @@ class MainViewController: Controller() {
         loadedImage?.let {
 
             loadedSheetInfo.apply {
-                loadedSheetInfo.spriteSheetName = file.name
+                loadedSheetInfo.spriteSheetName = file.nameWithoutExtension
                 sheetWidth = it.width
                 sheetHeight = it.height
                 sheetRows = 1
@@ -56,9 +58,13 @@ class MainViewController: Controller() {
     }
 
 
+    fun callEditSelection() {
 
+        if (loadedImage != null && selectedCell != null) {
 
+            editSpriteViewController.prepareEdit(loadedImage!!, loadedSheetInfo, selectedCell!!)
 
-
+        }
+    }
 
 }

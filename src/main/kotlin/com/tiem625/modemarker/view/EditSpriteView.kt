@@ -4,12 +4,15 @@ import com.tiem625.modemarker.app.Styles
 import com.tiem625.modemarker.controller.EditSpriteViewController
 import com.tiem625.modemarker.styles.EditSpriteViewStyles
 import com.tiem625.modemarker.styles.MainViewStyles
+import javafx.beans.binding.Bindings
 import javafx.geometry.Orientation
+import javafx.geometry.Rectangle2D
 import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import tornadofx.*
+import java.util.concurrent.Callable
 
 class EditSpriteView : View("Edit Sprite") {
 
@@ -30,7 +33,13 @@ class EditSpriteView : View("Edit Sprite") {
                 vbox {
                     label("Sprite Name")
                     textfield {
-                        bind(editSpriteViewController.spriteModel.spriteNameProperty())
+
+                        bind(
+                            Bindings.createStringBinding(Callable<String> {
+                                    editSpriteViewController.spriteModel.spriteName ?: ""
+                                }, editSpriteViewController.spriteModel.spriteNameProperty()
+                            )
+                        )
                     }
                 }
                 vbox {

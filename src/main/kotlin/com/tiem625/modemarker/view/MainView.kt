@@ -138,7 +138,10 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                                 setOnAction {
 
-                                    editSpriteView.openModal()
+                                    editSpriteView.openModal(
+                                            block = true,
+                                            escapeClosesWindow = false
+                                    )
                                 }
                             }
                         }

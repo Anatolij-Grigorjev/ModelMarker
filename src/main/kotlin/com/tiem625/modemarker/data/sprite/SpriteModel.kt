@@ -10,7 +10,7 @@ class SpriteModel {
     var spriteColIdx: Int by property(0)
     fun spriteColIdxProperty() = getProperty(SpriteModel::spriteColIdx)
 
-    var spriteName: String by property("")
+    var spriteName: String? by property()
     fun spriteNameProperty() = getProperty(SpriteModel::spriteName)
 
 }
