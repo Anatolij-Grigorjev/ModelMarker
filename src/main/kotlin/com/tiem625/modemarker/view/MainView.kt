@@ -138,6 +138,7 @@ class MainView : View("Model Marker v${Version.versionString} (tm)") {
 
                                 setOnAction {
 
+                                    mainViewController.callEditSelection()
                                     editSpriteView.openModal(
                                             block = true,
                                             escapeClosesWindow = false

@@ -12,7 +12,7 @@ class EditSpriteViewController: Controller() {
     val rectModel: RectModel = RectModel()
 
 
-    var loadedSheetInfo: SpriteSheetMetaInfo? by property()
+    var loadedSheetInfo: SpriteSheetMetaInfo by property(SpriteSheetMetaInfo())
     fun loadedSheetInfoProperty() = getProperty(EditSpriteViewController::loadedSheetInfo)
 
     var loadedImage: Image? by property()

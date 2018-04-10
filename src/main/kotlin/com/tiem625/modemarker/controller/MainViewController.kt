@@ -52,11 +52,6 @@ class MainViewController: Controller() {
         }
     }
 
-    fun selectButton(rIdx: Int, cIdx: Int) {
-
-        selectedCell = Pair(rIdx, cIdx)
-    }
-
 
     fun callEditSelection() {
 
